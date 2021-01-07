@@ -1,11 +1,14 @@
-import React, { Component,useState,useEffect } from 'react'
+import React, { Component,useState,useEffect,useRef } from 'react'
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import ProgressBar from '../Component/Progress';
+import ProgressBar from '../Component/ProgressBar';
 
 
 function Progress() {
-  const [scrollPostion,setScrollPostion] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPart,setcurrentPart] = useState(1);
+  let part = 3;
+  let resultsRef = useRef();
 
   const StyledButton = withStyles({
     root: {
@@ -25,47 +28,41 @@ function Progress() {
     },
   })(Button);
 
-  // const listenToScrollEvent = () => {
-  //   document.addEventListener("scroll", () => {
-  //     requestAnimationFrame(() => {
-  //       // Calculates the scroll distance
-  //       this.calculateScrollDistance();
-  //     });
-  //   });
-  // };
+  const increaseCurrentPart = () => {
+    setcurrentPart(currentPart+1)
+    setIsLoading(false)
+  };
 
-  // const calculateScrollDistance = () => {
-  //   const scrollTop = window.pageYOffset; // how much the user has scrolled by
-  //   const winHeight = window.innerHeight;
-  //   const docHeight = this.getDocHeight();
+  const decreaseCurrentPart = () => {
+    setcurrentPart(currentPart-1)
+    setIsLoading(false)
+  };
 
-  //   const totalDocScrollLength = docHeight - winHeight;
-  //   const scrollPostion = Math.floor(scrollTop / totalDocScrollLength * 100)
-
-  //   this.setState({
-  //     scrollPostion,
-  //   });
-  // }
-
-  // const getDocHeight = () => {
-  //   return Math.max(
-  //     document.body.scrollHeight, document.documentElement.scrollHeight,
-  //     document.body.offsetHeight, document.documentElement.offsetHeight,
-  //     document.body.clientHeight, document.documentElement.clientHeight
-  //   );
-  // }
-
-  
-  // useEffect(() => {
-  //   listenToScrollEvent();
-  // }, [])
-
+  useEffect(
+    () => {
+      if (resultsRef.current) {
+        window.scrollTo({
+          behavior: "smooth",
+          top: resultsRef.current.offsetTop
+        });
+        setIsLoading(true)
+      }
+    },
+    [isLoading]
+  );
 
   return (
-    <div>
-      {/* <Progress/> */}
+    <div ref={resultsRef}>
+      <ProgressBar part={part} currentPart={currentPart} />
       <br/>
-      <StyledButton>เริ่มทำแบบประเมิน</StyledButton>
+      <div>
+        <p>
+          {currentPart==1?"Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          :"Hi Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+        </p>
+      </div>
+      <StyledButton onClick={()=>increaseCurrentPart()}>เริ่มทำแบบประเมิน</StyledButton>
+      <StyledButton onClick={()=>decreaseCurrentPart()}>ยกเลิกทำแบบประเมิน</StyledButton>
     </div>
   )
 }

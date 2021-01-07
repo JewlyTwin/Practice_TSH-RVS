@@ -11,3 +11,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Progress Bar */
+html {
+  overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
+}
+
+body {
+  background: #F3F3F3;
+  font-family: "Courier New", Courier, monospace;
+  color: #373A3C;
+  /* padding: 5% 15%; */
+}
+
+p {
+  font-size: 1.8rem;
+}
+
+p:first-of-type {
+  margin-top: 60px;
+}
+
+#progressBarContainer {
+  position: fixed;
+  z-index: 10;
+  background: rgba(255,255,255,0.05);
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+
+#progressBar {
+  background: #09636C;
+  transform-origin: top left;
+  transform: scale(0,0);
+}
+
+#progressBarContainer,
+#progressBar {
+  height: 10px;
+}

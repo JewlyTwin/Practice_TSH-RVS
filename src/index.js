@@ -4,9 +4,10 @@ import './index.css';
 import App from './App';
 import Blur from './Component/testcssblur'
 import Progress from './Page/Progress'
+import Layout from './Component/layout'
 // import ColorExtract from './colorExtractor';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Route, Switch, Link, Router, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './i18n';
 
 ReactDOM.render(
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Route exact path="/" component={App} />
       <Route path="/blur" component={Blur} />
       <Route path="/progress" component={Progress} />
+      <Route path="/layout" component={Layout} />
       {/* <Route path="/color" component={ColorExtract} /> */}
     </Switch>
   </BrowserRouter>,
